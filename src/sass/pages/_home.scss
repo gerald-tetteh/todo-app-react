@@ -1,0 +1,28 @@
+.home {
+  max-width: 144rem;
+  width: 100%;
+  margin: 0 auto;
+
+  background-image: url(../images/bg-desktop-light.jpg);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: fixed;
+
+  &__theme-icon {
+    width: 3rem;
+    height: 3rem;
+    align-self: center;
+  }
+
+  &__box {
+    width: 37%;
+    height: 90rem;
+    margin: 0 auto;
+    padding-top: 8rem;
+  }
+
+  &__title-bar {
+    display: flex;
+    justify-content: space-between;
+  }
+}

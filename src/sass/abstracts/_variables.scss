@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+$themes: (
+  "light": (
+    "color-active-link": hsl(220, 98%, 61%),
+    "color-title-grey": hsl(0, 0%, 98%),
+    "color-text-main": hsl(235, 19%, 35%),
+    "color-link-inactive": hsl(236, 9%, 61%),
+    "color-text-light": hsl(236, 33%, 92%),
+    "color-text-canceled": hsl(233, 11%, 84%),
+    "color-background": hsl(233, 11%, 84%),
+    "color-list-background": #fff
+  ),
+  "dark": (
+    "color-active-link": hsl(220, 98%, 61%),
+    "color-title-grey": hsl(0, 0%, 98%),
+    "color-background": hsl(235, 21%, 11%),
+    "color-list-background": hsl(237, 14%, 26%),
+    "color-text-main": hsl(236, 33%, 92%),
+    "color-text-light": hsl(234, 11%, 52%),
+    "color-text-canceled": hsl(234, 39%, 85%),
+    "color-link-inactive": hsl(234, 11%, 52%)
+  )
+);
+
+.light-theme {
+  @each $color, $value in map-get($themes, "light") {
+    --#{$color}: #{$value};
+  }
+}
+.dark-theme {
+  @each $color, $value in map-get($themes, "dark") {
+    --#{$color}: #{$value};
+  }
+}
+
+$check-gradient-1: hsl(192, 100%, 67%);
+$check-gradient-2: hsl(280, 87%, 65%);
+
+$font-primary: 'Josefin Sans', sans-serif;
+$default-font-size: 1.8rem;
+$border-radius: 5px;
