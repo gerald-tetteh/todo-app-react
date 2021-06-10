@@ -1,24 +1,28 @@
 .home {
-  max-width: 144rem;
-  width: 100%;
-  margin: 0 auto;
-
-  background-image: url(../images/bg-desktop-light.jpg);
+  background-image: getBgImage(bg-image-desktop);
   background-repeat: no-repeat;
   background-position: top;
   background-attachment: fixed;
+  transition: $transition-medium;
+  background-color: getColor(color-background);
+  min-height: 100vh;
+  padding: 1rem;
 
   &__theme-icon {
     width: 3rem;
     height: 3rem;
     align-self: center;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &__box {
-    width: 37%;
-    height: 90rem;
+    width: 40%;
+    min-height: 20rem;
     margin: 0 auto;
-    padding-top: 8rem;
+    padding: 8rem 0;
   }
 
   &__title-bar {

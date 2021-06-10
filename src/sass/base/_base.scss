@@ -16,3 +16,9 @@ body {
   font-family: $font-primary;
   font-weight: 700;
 }
+#root {
+  height: 100vh;
+  max-width: 144rem;
+  width: 100%;
+  margin: 0 auto;
+}

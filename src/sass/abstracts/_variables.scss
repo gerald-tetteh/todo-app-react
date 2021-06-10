@@ -7,9 +7,11 @@ $themes: (
     "color-text-main": hsl(235, 19%, 35%),
     "color-link-inactive": hsl(236, 9%, 61%),
     "color-text-light": hsl(236, 33%, 92%),
-    "color-text-canceled": hsl(233, 11%, 84%),
-    "color-background": hsl(233, 11%, 84%),
-    "color-list-background": #fff
+    "color-text-canceled": hsl(234, 5%, 62%),
+    "color-background": rgb(248, 248, 248),
+    "color-list-background": #fff,
+    "bg-image-desktop": url(../images/bg-desktop-light.jpg),
+    "bg-image-mobile": url(../images/bg-mobile-light.jpg)
   ),
   "dark": (
     "color-active-link": hsl(220, 98%, 61%),
@@ -19,7 +21,9 @@ $themes: (
     "color-text-main": hsl(236, 33%, 92%),
     "color-text-light": hsl(234, 11%, 52%),
     "color-text-canceled": hsl(234, 39%, 85%),
-    "color-link-inactive": hsl(234, 11%, 52%)
+    "color-link-inactive": hsl(234, 11%, 52%),
+    "bg-image-desktop": url(../images/bg-desktop-dark.jpg),
+    "bg-image-mobile": url(../images/bg-mobile-dark.jpg)
   )
 );
 
@@ -40,3 +44,7 @@ $check-gradient-2: hsl(280, 87%, 65%);
 $font-primary: 'Josefin Sans', sans-serif;
 $default-font-size: 1.8rem;
 $border-radius: 5px;
+
+$transition-medium: all 0.4s;
+$transition-small: all 0.2s;
+$box-shadow: 0 1rem 2rem rgba(#000,0.1);

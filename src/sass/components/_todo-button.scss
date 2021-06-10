@@ -1,0 +1,11 @@
+.todo__button {
+  border: none;
+  background-color: transparent;
+  color: getColor(color-link-inactive);
+  font-weight: 700;
+
+  &:hover {
+    cursor: pointer;
+    color: hsl(235, 21%, 11%);
+  }
+}

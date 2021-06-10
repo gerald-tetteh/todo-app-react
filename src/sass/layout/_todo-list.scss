@@ -1,0 +1,91 @@
+.todo {
+  &__list {
+    background-color: getColor(color-list-background);
+    transition: $transition-medium;
+    border-radius: $border-radius $border-radius 0 0;
+
+    &-item {
+      display: flex;
+      padding: 1.8rem 2.3rem;
+      border-bottom: 1px solid #9b98ab27;
+      justify-content: space-between;
+      align-items: center;
+
+      &:hover .todo__cross {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__checkbox {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 2px solid #9b98ab27;
+    transition: $transition-small;
+    overflow: hidden;
+
+    &--checked {
+      background-image: url(../images/icon-check.svg), linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50% 50%, 130% 130%;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &__text {
+    flex: 1;
+    padding-left: 2rem;
+    color: getColor(color-text-main);
+    font-weight: 400;
+    align-self: center;
+  }
+  &__cross {
+    justify-self: flex-end;
+    padding: 0 1rem;
+    opacity: 0;
+    transition: $transition-small;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__bottom-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: getColor(color-list-background);
+    padding: 1.8rem 3.5rem;
+    border-radius: 0 0 $border-radius $border-radius;
+    transition: $transition-medium;
+  }
+
+  &__items-left {
+    color: getColor(color-link-inactive);
+    font-size: 1.3rem;
+    align-self: center;
+  }
+
+  &__clear-button {
+    color: getColor(color-link-inactive);
+    font-size: 1.4rem;
+    align-self: center;
+    font-weight: 400;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__action-buttons > * {
+    padding: 0 1rem;
+  }
+}
+
+.list-container {
+  box-shadow: $box-shadow;
+}

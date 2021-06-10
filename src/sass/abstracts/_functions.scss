@@ -1,3 +1,6 @@
 @function getColor($color) {
   @return var(--#{$color});
 }
+@function getBgImage($image) {
+  @return var(--#{$image});
+}
