@@ -23,19 +23,50 @@
     border-radius: 50%;
     border: 2px solid #9b98ab27;
     transition: $transition-small;
-    overflow: hidden;
+    background-clip: padding-box;
+    position: relative;
+
+    &:hover::before {
+      content: '';
+      position: absolute;
+      top: -2px; bottom: -2px; right: -2px; left: -2px;
+      border-radius: inherit;
+      z-index: 1;
+      background-image: linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
+    }
+
+    &:hover::after {
+      content: '';
+      position: absolute;
+      top: -0.1px; bottom: -0.1px; right: -0.1px; left: -0.1px;
+      background-color: getColor(color-list-background);
+      z-index: 2;
+      border-radius: inherit;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
 
     &--checked {
       background-image: url(../images/icon-check.svg), linear-gradient(to right bottom,hsl(192, 100%, 67%),hsl(280, 87%, 65%));
       background-repeat: no-repeat;
       background-position: center;
       background-size: 50% 50%, 130% 130%;
-    }
+      z-index: 10;
 
-    &:hover {
-      cursor: pointer;
+      &:hover {
+        cursor: pointer;
+      }
+      &:hover::after {
+        opacity: 0;
+      }
+      &:hover::before {
+        opacity: 0;
+      }
     }
   }
+
   &__text {
     flex: 1;
     padding-left: 2rem;

@@ -118,14 +118,42 @@ body {
   border-radius: 50%;
   border: 2px solid #9b98ab27;
   transition: all 0.2s;
-  overflow: hidden; }
+  background-clip: padding-box;
+  position: relative; }
+  .todo__checkbox:hover::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    right: -2px;
+    left: -2px;
+    border-radius: inherit;
+    z-index: 1;
+    background-image: linear-gradient(to right bottom, #57ddff, #c058f3); }
+  .todo__checkbox:hover::after {
+    content: '';
+    position: absolute;
+    top: -0.1px;
+    bottom: -0.1px;
+    right: -0.1px;
+    left: -0.1px;
+    background-color: var(--color-list-background);
+    z-index: 2;
+    border-radius: inherit; }
+  .todo__checkbox:hover {
+    cursor: pointer; }
   .todo__checkbox--checked {
     background-image: url(../images/icon-check.svg), linear-gradient(to right bottom, #57ddff, #c058f3);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 50% 50%, 130% 130%; }
-  .todo__checkbox:hover {
-    cursor: pointer; }
+    background-size: 50% 50%, 130% 130%;
+    z-index: 10; }
+    .todo__checkbox--checked:hover {
+      cursor: pointer; }
+    .todo__checkbox--checked:hover::after {
+      opacity: 0; }
+    .todo__checkbox--checked:hover::before {
+      opacity: 0; }
 
 .todo__text {
   flex: 1;
