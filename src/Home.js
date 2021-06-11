@@ -151,6 +151,9 @@ const Home = () => {
             </p>
           </div>
         </div>
+        <div className="todo__bottom-bar todo__bottom-bar--single mt-sm">
+          <TodoActionButtons state={state} dispatch={dispatch} />
+        </div>
         <p className="small-text text-align-center mt-md">
           Drag and drop to reorder list
         </p>

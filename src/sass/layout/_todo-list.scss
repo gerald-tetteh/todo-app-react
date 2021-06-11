@@ -79,6 +79,10 @@
     padding: 0 1rem;
     opacity: 0;
     transition: $transition-small;
+    
+    @include respond(tab-land) {
+      opacity: 1;
+    }
 
     &:hover {
       cursor: pointer;
@@ -93,6 +97,29 @@
     padding: 1.8rem 3.5rem;
     border-radius: 0 0 $border-radius $border-radius;
     transition: $transition-medium;
+
+    & .todo__action-buttons {
+      @include respond(phone) {
+        display: none;
+      }
+    }
+
+    &--single {
+      justify-content: center;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      visibility: hidden;
+
+      & .todo__action-buttons {
+        @include respond(phone) {
+          display: block;
+        }
+      }
+
+      @include respond(phone) {
+        visibility: visible;
+      }
+    }
   }
 
   &__items-left {

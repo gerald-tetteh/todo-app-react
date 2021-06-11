@@ -9,6 +9,10 @@
 html {
   font-size: 62.5%;
   height: 100%;
+
+  @include respond(phone) {
+    font-size: 50%;
+  }
 }
 body {
   min-height: 100%;
@@ -18,7 +22,11 @@ body {
 }
 #root {
   height: 100vh;
-  max-width: 144rem;
+  max-width: 1440px;
   width: 100%;
   margin: 0 auto;
+
+  @include respond(phone) {
+    max-width: 375px;
+  }
 }

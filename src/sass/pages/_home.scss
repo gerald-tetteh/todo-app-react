@@ -1,12 +1,16 @@
 .home {
   background-image: getBgImage(bg-image-desktop);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: top center;
   background-attachment: fixed;
   transition: $transition-medium;
   background-color: getColor(color-background);
   min-height: 100vh;
   padding: 1rem;
+  
+  @include respond(phone) {
+    background-image: getBgImage(bg-image-mobile);
+  }
 
   &__theme-icon {
     width: 3rem;
@@ -23,6 +27,16 @@
     min-height: 20rem;
     margin: 0 auto;
     padding: 8rem 0;
+
+    @include respond(tab-land) {
+      width: 60%;
+    }
+    @include respond(tab-port) {
+      width: 75%;
+    }
+    @include respond(phone) {
+      width: 95%;
+    }
   }
 
   &__title-bar {
