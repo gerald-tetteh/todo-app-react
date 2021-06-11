@@ -52,11 +52,25 @@ body {
   text-transform: uppercase;
   letter-spacing: 1.5rem; }
 
+.small-text {
+  color: var(--color-text-light);
+  font-weight: 400;
+  font-size: 1.5rem; }
+
 .mt-md {
-  margin-top: 4rem; }
+  margin-top: 4rem !important; }
 
 .mb-sm {
-  margin-bottom: 3rem; }
+  margin-bottom: 3rem !important; }
+
+.text-align-center {
+  text-align: center !important; }
+
+.active {
+  color: var(--color-active-link) !important; }
+
+.line-through {
+  text-decoration: line-through !important; }
 
 .input {
   display: flex;

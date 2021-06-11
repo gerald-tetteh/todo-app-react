@@ -1,6 +1,15 @@
 .mt-md {
-  margin-top: 4rem;
+  margin-top: 4rem !important;
 }
 .mb-sm {
-  margin-bottom: 3rem;
+  margin-bottom: 3rem !important;
+}
+.text-align-center {
+  text-align: center !important;
+}
+.active {
+  color: getColor(color-active-link) !important;
+}
+.line-through {
+  text-decoration: line-through !important;
 }

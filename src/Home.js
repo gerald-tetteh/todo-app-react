@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { v4 as uuid4 } from "uuid";
 
 import InputField from "./components/InputField";
 import moonIcon from "./images/icon-moon.svg";
 import sunIcon from "./images/icon-sun.svg";
 import closeIcon from "./images/icon-cross.svg";
+import TodoList from "./components/TodoList";
+import TodoActionButtons from "./components/TodoActionButtons";
 
 const Home = () => {
   const htmlTag = document.querySelector("html");
   const [todos, setTodos] = useState([]);
   const [inputText, setInputText] = useState("");
   const [themeIcon, setThemeIcon] = useState(moonIcon);
+
+  useEffect(() => {
+    if (window.localStorage.getItem("theme") === "light-theme") {
+      htmlTag.className = "light-theme";
+      setThemeIcon(moonIcon);
+    } else {
+      htmlTag.className = "dark-theme";
+      setThemeIcon(sunIcon);
+    }
+  }, []);
 
   const handleChangeTheme = () => {
     if (window.localStorage.getItem("theme") === "light-theme") {
@@ -44,16 +56,35 @@ const Home = () => {
     newTodos.splice(selectedTodoIndex, 0, selectedTodo);
     setTodos(newTodos);
   };
-
-  useEffect(() => {
-    if (window.localStorage.getItem("theme") === "light-theme") {
-      htmlTag.className = "light-theme";
-      setThemeIcon(moonIcon);
+  const handleClearCompleted = () => {
+    const newTodos = todos.filter((todo) => !todo.completed);
+    setTodos(newTodos);
+  };
+  const handleTodoList = (options) => {
+    if (options.all) {
+      return todos;
+    } else if (options.active) {
+      return todos.filter((todo) => todo.completed !== true);
     } else {
-      htmlTag.className = "dark-theme";
-      setThemeIcon(sunIcon);
+      return todos.filter((todo) => todo.completed);
     }
-  }, []);
+  };
+  const reducer = (_, action) => {
+    switch (action.type) {
+      case "all":
+        return { all: true, active: false, completed: false };
+      case "active":
+        return { all: false, active: true, completed: false };
+      case "completed":
+        return { all: false, active: false, completed: true };
+      default:
+        return { all: true, active: false, completed: false };
+    }
+  };
+  const init = { all: true, active: false, completed: false };
+
+  const [state, dispatch] = useReducer(reducer, init);
+  const todoList = handleTodoList(state);
 
   return (
     <div className="home">
@@ -62,7 +93,7 @@ const Home = () => {
           <h1 className="heading-primary">todo</h1>
           <img
             src={themeIcon}
-            alt=""
+            alt="Theme switch icon"
             className="home__theme-icon"
             onClick={handleChangeTheme}
           />
@@ -75,48 +106,25 @@ const Home = () => {
         />
 
         <div className="list-container">
-          <div className="todo__list">
-            {todos.map((todo) => {
-              return (
-                <li className="todo__list-item" key={todo.key}>
-                  {!todo.completed && (
-                    <div
-                      className="todo__checkbox"
-                      onClick={handleSetCompleted}
-                      id={todo.key}
-                    ></div>
-                  )}
-                  {todo.completed && (
-                    <div
-                      className="todo__checkbox todo__checkbox--checked"
-                      id={todo.key}
-                      onClick={handleSetCompleted}
-                    ></div>
-                  )}
-                  <p className="todo__text">{todo.task}</p>
-                  <img
-                    src={closeIcon}
-                    alt="Close button"
-                    className="todo__cross"
-                    onClick={handleDeleteTodo}
-                    id={todo.key}
-                  />
-                </li>
-              );
-            })}
-          </div>
+          <TodoList
+            closeIcon={closeIcon}
+            handleDeleteTodo={handleDeleteTodo}
+            handleSetCompleted={handleSetCompleted}
+            todoList={todoList}
+          />
           <div className="todo__bottom-bar">
             <p className="todo__items-left">
-              {todos.length} item{todos.length > 1 ? "s" : ""} left
+              {todoList.length} item{todoList.length > 1 ? "s" : ""} left
             </p>
-            <div className="todo__action-buttons">
-              <button className="todo__button">All</button>
-              <button className="todo__button">Active</button>
-              <button className="todo__button">Completed</button>
-            </div>
-            <p className="todo__clear-button">Clear Completed</p>
+            <TodoActionButtons state={state} dispatch={dispatch} />
+            <p className="todo__clear-button" onClick={handleClearCompleted}>
+              Clear Completed
+            </p>
           </div>
         </div>
+        <p className="small-text text-align-center mt-md">
+          Drag and drop to reorder list
+        </p>
       </div>
     </div>
   );
