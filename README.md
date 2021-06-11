@@ -12,9 +12,7 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -34,20 +32,12 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
+![Desktop Design](./public/screenshots/sc-desktop.png)
+![Mobile Design](./public/screenshots/sc-mobile.png)
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [@gerald-tetteh/todo-app-react](https://github.com/gerald-tetteh/todo-app-react)
+- Live Site URL: [@gerald-tetteh.github.io](https://gerald-tetteh.github.io/todo-app-react)
 
 ## My process
 
@@ -55,62 +45,97 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 - Semantic HTML5 markup
 - CSS custom properties
+- Sass
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
+- Desktop-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
+This project regardless of how simple it looks has taught me a lot. The first is incorporating light and dark modes into the website. I used sass and css variables to achieve this feature. Depending on the class applied to the HTML tag either the light or dark colors are applied.
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<html lang="en" class="light-theme">
+<html lang="en" class="dark-theme">
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+The classes above contain the CSS variables for each theme.
+
+```scss
+$themes: (
+  "light": (
+    "color-active-link": hsl(220, 98%, 61%),
+    "color-title-grey": hsl(0, 0%, 98%),
+    "color-text-main": hsl(235, 19%, 35%),
+    "color-link-inactive": hsl(236, 9%, 61%),
+    "color-text-light": hsl(236, 33%, 92%),
+    "color-text-canceled": hsl(234, 5%, 62%),
+    "color-background": rgb(248, 248, 248),
+    "color-list-background": #fff,
+    "bg-image-desktop": url(../images/bg-desktop-light.jpg),
+    "bg-image-mobile": url(../images/bg-mobile-light.jpg)
+  ),
+  "dark": (
+    "color-active-link": hsl(220, 98%, 61%),
+    "color-title-grey": hsl(0, 0%, 98%),
+    "color-background": hsl(235, 21%, 11%),
+    "color-list-background": hsl(237, 14%, 26%),
+    "color-text-main": hsl(236, 33%, 92%),
+    "color-text-light": hsl(234, 11%, 52%),
+    "color-text-canceled": hsl(234, 39%, 85%),
+    "color-link-inactive": hsl(234, 11%, 52%),
+    "bg-image-desktop": url(../images/bg-desktop-dark.jpg),
+    "bg-image-mobile": url(../images/bg-mobile-dark.jpg)
+  )
+);
+
+.light-theme {
+  @each $color, $value in map-get($themes, "light") {
+    --#{$color}: #{$value};
+  }
+}
+.dark-theme {
+  @each $color, $value in map-get($themes, "dark") {
+    --#{$color}: #{$value};
+  }
 }
 ```
+
+The sass @each is used to iterate through the themes map and create the css variables.
+
+The second thing I learned was implementing a drag and drop feature to reorder the list. I got some help from this [sandbox](https://codesandbox.io/s/react-drag-drop-reorder-mxt4t?fontsize=14&hidenavigation=1&theme=dark&file=/src/Box.js).
+
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+const handleDragging = (e) => (dragging = e.target.id);
+const handleDraggingOver = (e) => {
+  e.preventDefault();
+  if (e.target.className === "todo__text") {
+    draggingOver = e.target.parentElement.id;
+  } else {
+    draggingOver = e.target.id;
+  }
+};
+const handleDrop = (e) => {
+  const draggedTodo = todos.filter((todo) => todo.key === dragging)[0];
+  const draggedOverTodo = todos.filter(
+    (todo) => todo.key === draggingOver
+  )[0];
+  const draggedTodoIndex = todos.findIndex((todo) => todo.key === dragging);
+  const draggedOverTodoIndex = todos.findIndex(
+    (todo) => todo.key === draggingOver
+  );
+  const todoList = [...todos];
+  todoList.splice(draggedOverTodoIndex, 1, draggedTodo);
+  todoList.splice(draggedTodoIndex, 1, draggedOverTodo);
+  setTodos(todoList);
+};
 ```
-
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
-
-**Note: Delete this note and the content within this section and replace with your own learnings.**
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+The next feature I would like to implement is persistent storage and a user system to allow different people to store their todos.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website - [Gerald Addo-Tetteh](https://gerald-addo.herokuapp.com)
+- Frontend Mentor - [@gerald-tetteh](https://www.frontendmentor.io/profile/gerald-tetteh)
+- GitHub - [@gerald-tetteh](https://github.com/gerald-tetteh)
