@@ -78,8 +78,9 @@ body {
 .active {
   color: var(--color-active-link) !important; }
 
-.line-through {
-  text-decoration: line-through !important; }
+.completed-text {
+  text-decoration: line-through !important;
+  color: var(--color-text-light) !important; }
 
 .input {
   display: flex;
