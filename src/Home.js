@@ -14,6 +14,9 @@ const Home = () => {
   const [inputText, setInputText] = useState("");
   const [themeIcon, setThemeIcon] = useState(moonIcon);
 
+  let dragging;
+  let draggingOver;
+
   useEffect(() => {
     if (window.localStorage.getItem("theme") === "light-theme") {
       htmlTag.className = "light-theme";
@@ -39,7 +42,7 @@ const Home = () => {
     if (e.which === 13) {
       setTodos([
         ...todos,
-        { task: e.target.value, completed: false, key: uuid4() },
+        { task: e.target.value.trim(), completed: false, key: uuid4() },
       ]);
       setInputText("");
     }
@@ -62,12 +65,35 @@ const Home = () => {
   };
   const handleTodoList = (options) => {
     if (options.all) {
-      return todos;
+      return [...todos];
     } else if (options.active) {
       return todos.filter((todo) => todo.completed !== true);
     } else {
       return todos.filter((todo) => todo.completed);
     }
+  };
+  const handleDragging = (e) => (dragging = e.target.id);
+  const handleDraggingOver = (e) => {
+    e.preventDefault();
+    if (e.target.className === "todo__text") {
+      draggingOver = e.target.parentElement.id;
+    } else {
+      draggingOver = e.target.id;
+    }
+  };
+  const handleDrop = (e) => {
+    const draggedTodo = todos.filter((todo) => todo.key === dragging)[0];
+    const draggedOverTodo = todos.filter(
+      (todo) => todo.key === draggingOver
+    )[0];
+    const draggedTodoIndex = todos.findIndex((todo) => todo.key === dragging);
+    const draggedOverTodoIndex = todos.findIndex(
+      (todo) => todo.key === draggingOver
+    );
+    const todoList = [...todos];
+    todoList.splice(draggedOverTodoIndex, 1, draggedTodo);
+    todoList.splice(draggedTodoIndex, 1, draggedOverTodo);
+    setTodos(todoList);
   };
   const reducer = (_, action) => {
     switch (action.type) {
@@ -84,7 +110,7 @@ const Home = () => {
   const init = { all: true, active: false, completed: false };
 
   const [state, dispatch] = useReducer(reducer, init);
-  const todoList = handleTodoList(state);
+  const todoList = handleTodoList(state).reverse();
 
   return (
     <div className="home">
@@ -111,6 +137,9 @@ const Home = () => {
             handleDeleteTodo={handleDeleteTodo}
             handleSetCompleted={handleSetCompleted}
             todoList={todoList}
+            onDrag={handleDragging}
+            onDragOver={handleDraggingOver}
+            onDrop={handleDrop}
           />
           <div className="todo__bottom-bar">
             <p className="todo__items-left">
@@ -121,6 +150,9 @@ const Home = () => {
               Clear Completed
             </p>
           </div>
+        </div>
+        <div className="todo__bottom-bar todo__bottom-bar--single mt-sm">
+          <TodoActionButtons state={state} dispatch={dispatch} />
         </div>
         <p className="small-text text-align-center mt-md">
           Drag and drop to reorder list
