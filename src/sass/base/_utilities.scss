@@ -13,6 +13,7 @@
 .active {
   color: getColor(color-active-link) !important;
 }
-.line-through {
+.completed-text {
   text-decoration: line-through !important;
+  color: getColor(color-text-light) !important;
 }

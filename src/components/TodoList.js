@@ -34,7 +34,11 @@ const TodoList = ({
                 onClick={handleSetCompleted}
               ></div>
             )}
-            <p className="todo__text">{todo.task}</p>
+            <p
+              className={`todo__text ${todo.completed ? "completed-text" : ""}`}
+            >
+              {todo.task}
+            </p>
             <img
               src={closeIcon}
               alt="Close button"
