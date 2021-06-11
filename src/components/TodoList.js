@@ -3,12 +3,23 @@ const TodoList = ({
   handleDeleteTodo,
   handleSetCompleted,
   closeIcon,
+  onDrag,
+  onDrop,
+  onDragOver,
 }) => {
   return (
-    <div className="todo__list">
+    <ul className="todo__list">
       {todoList.map((todo) => {
         return (
-          <li className="todo__list-item" key={todo.key}>
+          <li
+            className="todo__list-item"
+            key={todo.key}
+            draggable={true}
+            onDragStart={onDrag}
+            onDragOver={onDragOver}
+            onDrop={onDrop}
+            id={todo.key}
+          >
             {!todo.completed && (
               <div
                 className="todo__checkbox"
@@ -34,7 +45,7 @@ const TodoList = ({
           </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
